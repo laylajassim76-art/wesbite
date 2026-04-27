@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RAKIB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ac:#2563eb;--ac2:#3b82f6;--gr:#10b981;--rd:#ef4444;--am:#f59e0b;--pu:#8b5cf6;--g:#94a3b8;--g2:#64748b;--bd:rgba(37,99,235,.18);--cd:rgba(10,22,40,.72)}
+body{font-family:'Inter',sans-serif;background:#04080f;color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.sec{display:none;min-height:100vh;padding-top:68px}
+.sec.on{display:block}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(4,8,15,.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--bd)}
+.logo{font-weight:900;font-size:1.25rem;cursor:pointer;color:#fff;text-decoration:none;letter-spacing:0}
+.navlinks{display:flex;gap:.2rem}
+.nl{padding:.4rem .9rem;border-radius:8px;font-size:.85rem;font-weight:500;color:var(--g);cursor:pointer;border:none;background:transparent;font-family:'Inter',sans-serif;transition:all .2s}
+.nl:hover,.nl.on{color:#fff;background:rgba(37,99,235,.15)}
+.nl.on{color:var(--ac2)}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:16px;backdrop-filter:blur(14px)}
+.lbl{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--ac2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+.divider{height:1px;background:var(--bd);max-width:1080px;margin:0 auto}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4;transform:scale(1.3)}}
+@keyframes flicker{0%,100%{opacity:1}50%{opacity:.08}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.af{animation:flicker .3s infinite}
+.ab{animation:blink 1s infinite}
+
+/* HERO */
+.hero{min-height:calc(100vh - 132px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem;position:relative}
+.hero-glow{position:absolute;top:8%;left:50%;transform:translateX(-50%);width:min(860px,90vw);height:460px;background:radial-gradient(ellipse,rgba(37,99,235,.13),rgba(16,185,129,.04) 45%,transparent 72%);pointer-events:none}
+.hero::after{content:'';position:absolute;left:50%;bottom:2.25rem;transform:translateX(-50%);width:min(920px,calc(100% - 3rem));height:1px;background:linear-gradient(90deg,transparent,rgba(37,99,235,.38),transparent)}
+.badge{display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .9rem;border-radius:99px;border:1px solid rgba(37,99,235,.3);background:rgba(37,99,235,.08);font-size:.7rem;font-weight:600;color:var(--ac2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.25rem;font-family:'Space Mono',monospace}
+.bdot{width:5px;height:5px;border-radius:50%;background:#06b6d4;animation:pulse 2s infinite}
+h1.htitle{font-weight:900;font-size:clamp(3.2rem,9vw,7rem);line-height:.95;letter-spacing:0;margin-bottom:.9rem;color:#fff}
+.harabic{font-size:1rem;color:var(--g);margin-bottom:.9rem;direction:rtl}
+.htag{font-size:clamp(.95rem,2vw,1.1rem);color:var(--g);max-width:620px;line-height:1.7;margin-bottom:.6rem}
+.htag strong{color:#fff;font-weight:600}
+.hsub{font-size:.78rem;color:var(--g2);font-family:'Space Mono',monospace}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;width:min(820px,100%);margin-top:2.15rem}
+.hstat{padding:.85rem .9rem;border-radius:12px;border:1px solid rgba(37,99,235,.18);background:rgba(10,22,40,.54);backdrop-filter:blur(10px);text-align:left}
+.hstat-k{font-family:'Space Mono',monospace;font-size:.64rem;color:var(--g2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem}
+.hstat-v{font-weight:800;font-size:.88rem;color:#fff;line-height:1.25}
+.hstat:nth-child(2){border-color:rgba(16,185,129,.2)}.hstat:nth-child(3){border-color:rgba(245,158,11,.2)}.hstat:nth-child(4){border-color:rgba(139,92,246,.2)}
+
+/* ABOUT */
+.aw{max-width:1080px;margin:0 auto;padding:4.5rem 2rem 2rem}
+.section-kicker{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--ac2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.55rem}
+.about-head{display:grid;grid-template-columns:.85fr 1.15fr;gap:2rem;align-items:start;margin-bottom:1.4rem}
+.about-title{font-weight:900;font-size:clamp(3rem,7vw,5rem);line-height:.95;letter-spacing:0;color:#fff;margin-bottom:.85rem}
+.about-big-label{font-weight:800;font-size:clamp(1.05rem,2.4vw,1.55rem);line-height:1.25;letter-spacing:0;color:var(--ac2);max-width:430px}
+.about-lead{font-size:.88rem;color:var(--g);line-height:1.8;max-width:520px}
+.about-box{background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(6,182,212,.04));border:1px solid rgba(37,99,235,.25);border-radius:18px;padding:2.1rem;margin-bottom:1.2rem}
+.about-subtitle{font-weight:800;font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.35;margin-bottom:1.1rem}
+.about-subtitle span{color:var(--ac2)}
+.about-text{font-size:.85rem;color:var(--g);line-height:1.85;max-width:740px}
+.about-text+.about-text{margin-top:.75rem}
+.about-text strong{color:#fff;font-weight:700}
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.2rem}
+.ainfo{padding:1.2rem 1.25rem}
+.ainfo-k{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--ac2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.55rem}
+.ainfo h3{font-size:.95rem;line-height:1.3;margin-bottom:.45rem}
+.ainfo p{font-size:.78rem;color:var(--g);line-height:1.65}
+.tamuq-badge{display:inline-flex;align-items:center;gap:.7rem;padding:.65rem 1.1rem;border-radius:12px;border:1px solid var(--bd);background:var(--cd)}
+.tlogo{width:36px;height:36px;background:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.44rem;color:#500000;text-align:center;line-height:1.2;padding:2px}
+.tname{font-size:.8rem;font-weight:700}
+.tsub{font-size:.7rem;color:var(--g2)}
+/* TEAM */
+.tw{max-width:1080px;margin:0 auto;padding:2.8rem 2rem 5rem}
+.team-head{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;margin-bottom:1.4rem}
+.team-big-label{font-weight:900;font-size:clamp(1.8rem,3vw,2.35rem);letter-spacing:0;color:#fff;margin-bottom:.3rem}
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.tc{padding:1.75rem 1rem 1.5rem;text-align:center;transition:all .3s}
+.tc:hover{border-color:rgba(37,99,235,.4);transform:translateY(-3px)}
+.av{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.3rem;margin:0 auto .8rem}
+.tn{font-weight:700;font-size:.9rem}
+.adv-row{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.25rem}
+.adv{display:flex;align-items:center;gap:.85rem;padding:.95rem 1.2rem;transition:all .3s}
+.adv:hover{border-color:rgba(37,99,235,.3)}
+.adv-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.88rem;flex-shrink:0}
+.adv-name{font-weight:700;font-size:.83rem;margin-bottom:.12rem}
+.adv-role{font-size:.68rem;color:var(--g2);line-height:1.4}
+
+@media(max-width:820px){
+  nav{padding:0 1rem}
+  .hero{padding:2.4rem 1rem}
+  .hero-stats,.about-head,.about-grid,.tgrid,.adv-row{grid-template-columns:1fr}
+  .team-head{display:block}
+  .doc-row{align-items:flex-start;flex-direction:column}
+  .dr-meta{width:100%;justify-content:space-between}
+  .poster-cols{grid-template-columns:1fr}
+  .poster-info-col{border-left:none;border-top:1px solid rgba(37,99,235,.12)}
+}
+
+/* HOW */
+.how-hero{max-width:1080px;margin:0 auto;padding:3.5rem 2rem 2rem;text-align:center}
+.how-hd{font-weight:900;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:.65rem}
+.how-hd span{color:var(--ac2)}
+.scen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;padding:0 2rem 2rem;max-width:1080px;margin:0 auto}
+.sc{padding:1.6rem 1.35rem;transition:all .3s}
+.sc:hover{transform:translateY(-3px);border-color:rgba(37,99,235,.4)}
+.sc-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .65rem;border-radius:99px;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.9rem;font-family:'Space Mono',monospace}
+.ba{background:rgba(16,185,129,.12);color:var(--gr);border:1px solid rgba(16,185,129,.22)}
+.bb{background:rgba(245,158,11,.12);color:var(--am);border:1px solid rgba(245,158,11,.22)}
+.bc{background:rgba(239,68,68,.12);color:var(--rd);border:1px solid rgba(239,68,68,.22)}
+.sc-title{font-weight:700;font-size:.95rem;margin-bottom:.55rem}
+.sc-desc{font-size:.8rem;color:var(--g);line-height:1.6}
+.sc-steps{margin-top:.9rem;display:flex;flex-direction:column;gap:.38rem}
+.step{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--g)}
+.sd{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.sdg{background:var(--gr)}.sda{background:var(--am)}.sdr{background:var(--rd)}
+
+/* DEMO */
+.demo-wrap{max-width:1080px;margin:0 auto;padding:0 2rem 3rem}
+.demo-scenarios{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.35rem}
+.db{padding:.55rem 1rem;border-radius:9px;font-size:.75rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;border:none;display:flex;align-items:center;gap:.45rem}
+.db:hover{transform:translateY(-1px)}
+.dbr{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.22);color:#fca5a5}
+.dbg{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.22);color:#6ee7b7}
+.dba{background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.22);color:var(--ac2)}
+.dbpu{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd}
+.dbbl{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#93c5fd}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem;align-items:center}
+.helmet-panel{border-radius:14px;background:#070d1a;border:1px solid var(--bd);overflow:hidden;position:relative;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.h-led-div{position:absolute;right:9%;top:33%;width:13px;height:52px;border-radius:6.5px;background:#1a2030;transition:background .4s,box-shadow .4s;z-index:2}
+.h-glow{position:absolute;right:5%;top:27%;width:34px;height:70px;border-radius:12px;opacity:.35;transition:background .4s;z-index:1;pointer-events:none}
+.h-status{position:absolute;top:.75rem;left:.75rem;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);border-radius:99px;padding:.22rem .7rem;font-size:.62rem;font-weight:700;color:var(--gr);font-family:'Space Mono',monospace;z-index:3;transition:all .4s}
+.h-label{position:absolute;bottom:.55rem;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:.55rem;color:#475569;white-space:nowrap;z-index:3}
+.phone-wrap{display:flex;flex-direction:column;align-items:center}
+.phone{background:#111827;border-radius:34px;border:3px solid #1f2937;padding:15px 10px;width:220px;box-shadow:0 18px 48px rgba(0,0,0,.5)}
+.notch{width:64px;height:6px;background:#1f2937;border-radius:4px;margin:0 auto 11px}
+.pscreen{background:linear-gradient(180deg,#0a1628,#0d1f3c);border-radius:22px;overflow:hidden;min-height:380px;display:flex;flex-direction:column}
+.ph{padding:10px 12px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.05)}
+.ph-name{font-weight:800;font-size:12px}
+.ph-st{font-size:8px;color:var(--gr);font-family:'Space Mono',monospace}
+.pb{padding:11px;flex:1;display:flex;flex-direction:column;gap:8px}
+.vitals{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.vt{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:8px;text-align:center}
+.vv{font-size:14px;font-weight:800;line-height:1;font-family:'Space Mono',monospace}
+.vl{font-size:7px;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.04em}
+.banner{border-radius:8px;padding:8px 10px;text-align:center;font-size:9.5px;font-weight:700;transition:all .4s}
+.bn{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);color:var(--gr)}
+.bc2{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:var(--rd)}
+.bs{background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.45);color:#fca5a5}
+.bca{background:rgba(16,185,129,.18);border:1px solid rgba(16,185,129,.35);color:#6ee7b7}
+.bpu{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);color:#c4b5fd}
+.bbl{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:#93c5fd}
+.cdnum{font-size:24px;font-weight:900;text-align:center;color:var(--rd);font-family:'Space Mono',monospace;line-height:1}
+.cancel-btn{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);border-radius:7px;padding:6px;text-align:center;font-size:8.5px;font-weight:700;color:var(--gr);cursor:pointer}
+.cancel-btn:hover{background:rgba(16,185,129,.22)}
+.ble-row{display:flex;align-items:center;gap:5px;font-size:7.5px;color:#64748b;font-family:'Space Mono',monospace}
+.ble-dot{width:5px;height:5px;border-radius:50%;background:var(--gr);flex-shrink:0}
+.led-legend{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem;font-size:.68rem;color:var(--g2);font-family:'Space Mono',monospace}
+.ll{display:flex;align-items:center;gap:.35rem}
+.ll-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* TIMELINE */
+.tl-hero{max-width:900px;margin:0 auto;padding:3.5rem 2rem 1.5rem;text-align:center}
+.tl-hd{font-weight:900;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:.6rem}
+.tl-hd span{color:var(--ac2)}
+.tlc{padding:0 2rem 3.5rem;max-width:900px;margin:0 auto}
+.sem-div{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem}
+.sem-badge{font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;padding:.28rem .8rem;border-radius:99px;white-space:nowrap}
+.sem-line{flex:1;height:1px}
+.phases{position:relative;padding-left:1.75rem}
+.phases::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--ac),transparent)}
+.phases.green::before{background:linear-gradient(180deg,var(--gr),transparent)}
+.ph-item{position:relative;margin-bottom:1.4rem}
+.ph-dot{position:absolute;left:-1.75rem;top:.22rem;width:14px;height:14px;border-radius:50%;background:var(--ac);border:2px solid #04080f;box-shadow:0 0 0 3px rgba(37,99,235,.18)}
+.ph-dot.g{background:var(--gr);box-shadow:0 0 0 3px rgba(16,185,129,.15)}
+.ph-card{padding:1rem 1.25rem;transition:all .2s}
+.ph-card:hover{border-color:rgba(37,99,235,.28)}
+.ph-card.g{border-color:rgba(16,185,129,.15)}
+.ph-card.g:hover{border-color:rgba(16,185,129,.3)}
+.ph-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.35rem;gap:.5rem}
+.ph-name{font-weight:700;font-size:.92rem}
+.ph-date{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--g2);flex-shrink:0}
+.ph-desc{font-size:.8rem;color:var(--g);line-height:1.6;margin:.3rem 0}
+.ph-tags{display:flex;flex-wrap:wrap;gap:.32rem}
+.ph-tag{padding:.16rem .52rem;border-radius:99px;font-size:.65rem;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.18);color:var(--g)}
+.ph-tag.ok{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.2);color:var(--gr)}
+
+/* DOCS */
+.docs-hero{max-width:1080px;margin:0 auto;padding:3.5rem 2rem 1.5rem;text-align:center}
+.doc-tabs{display:flex;gap:.5rem;justify-content:center;margin-bottom:1.75rem}
+.dct{padding:.45rem 1.35rem;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid var(--bd);background:transparent;color:var(--g);font-family:'Inter',sans-serif;transition:all .2s}
+.dct.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.docs-body{display:none;padding:0 2rem 3.5rem;max-width:1080px;margin:0 auto}
+.docs-body.on{display:block}
+.dsec{margin-bottom:2.5rem}
+.dsec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.dsec-icon{display:flex;align-items:center;gap:.65rem}
+.dicon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.dsec-title{font-weight:700;font-size:.95rem}
+.dsec-sub{font-size:.7rem;color:var(--g2)}
+.dcnt{padding:.18rem .62rem;border-radius:99px;font-size:.66rem;font-weight:600;font-family:'Space Mono',monospace;background:rgba(37,99,235,.1);color:var(--ac2);border:1px solid rgba(37,99,235,.18)}
+.doc-list{display:flex;flex-direction:column;gap:.6rem}
+.doc-row{padding:.9rem 1.25rem;display:flex;align-items:center;gap:1rem;transition:all .2s}
+.doc-row:hover{border-color:rgba(37,99,235,.3)}
+.doc-row.dim{opacity:.55}
+.dri{font-size:1.15rem;flex-shrink:0}
+.drb{flex:1}
+.dr-title{font-weight:700;font-size:.85rem;margin-bottom:.15rem}
+.dr-desc{font-size:.73rem;color:var(--g);line-height:1.5}
+.dr-meta{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.dr-date{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--g2)}
+.sbadge{padding:.16rem .52rem;border-radius:99px;font-size:.6rem;font-weight:700;font-family:'Space Mono',monospace;white-space:nowrap}
+.sp{background:rgba(16,185,129,.12);color:var(--gr);border:1px solid rgba(16,185,129,.22)}
+.su{background:rgba(245,158,11,.12);color:var(--am);border:1px solid rgba(245,158,11,.22)}
+.btn{padding:.32rem .8rem;border-radius:7px;font-size:.72rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;border:1px solid var(--bd);background:transparent;color:var(--g);text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn:hover{background:rgba(37,99,235,.1);color:var(--ac2);border-color:rgba(37,99,235,.3)}
+.btn.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+.btn.p:hover{background:#1d4ed8}
+.btn.off{opacity:.35;pointer-events:none}
+.min-list{display:flex;flex-direction:column;gap:.42rem}
+.min-row{display:grid;grid-template-columns:95px 1fr 80px 60px;gap:.8rem;align-items:center;padding:.6rem 1rem;border-radius:9px;font-size:.76rem;transition:all .2s}
+.min-row.simple{grid-template-columns:95px 1fr 60px}
+.min-row:hover{border-color:rgba(37,99,235,.28)}
+.min-hdr{font-size:.63rem;color:var(--g2);font-family:'Space Mono',monospace;background:rgba(37,99,235,.05)}
+.min-date{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--g2)}
+.min-link{color:var(--ac2);font-size:.72rem;cursor:pointer}
+.min-link:hover{text-decoration:underline}
+.media-stack{display:flex;flex-direction:column;gap:1.25rem}
+.media-item{display:grid;grid-template-columns:1.1fr 1fr;min-height:220px;overflow:hidden}
+.mi-preview{background:#070d1a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.7rem}
+.play-btn{width:52px;height:52px;border-radius:50%;background:rgba(37,99,235,.85);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.mi-lbl{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--g2);letter-spacing:.08em;text-transform:uppercase}
+.mi-info{padding:1.6rem 1.9rem;display:flex;flex-direction:column;justify-content:center;gap:.55rem}
+.mi-tag{font-family:'Space Mono',monospace;font-size:.63rem;color:var(--ac2);letter-spacing:.1em;text-transform:uppercase}
+.mi-title{font-weight:800;font-size:1.1rem;line-height:1.2}
+.mi-desc{font-size:.8rem;color:var(--g);line-height:1.6}
+.mi-acts{display:flex;gap:.6rem;margin-top:.15rem}
+.shared-lbl{display:flex;align-items:center;gap:.5rem;font-size:.68rem;color:var(--g2);margin-bottom:1rem;font-family:'Space Mono',monospace}
+.shared-lbl::before,.shared-lbl::after{content:'';flex:1;height:1px;background:var(--bd)}
+.video-section{max-width:900px;margin:0 auto 3rem;padding:0 2rem}
+.video-section h2{font-weight:900;font-size:clamp(1.4rem,3vw,2rem);text-align:center;margin-bottom:1.25rem;color:#fff}
+.video-section video{width:100%;display:block;border-radius:14px;border:1px solid var(--bd);background:#000;outline:none}
+.poster-section{margin-top:2rem;background:#0d1117;border-radius:18px;border:1px solid rgba(37,99,235,.15);overflow:hidden}
+.poster-cols{display:grid;grid-template-columns:55fr 45fr;align-items:stretch}
+.poster-preview-col{padding:0;overflow:hidden;display:flex}
+.poster-preview-card{width:100%;position:relative;overflow:hidden;background:#0d1117;flex:1;height:560px}
+.poster-preview-img{position:absolute;top:0;left:0;display:block;transform:scale(0.35);transform-origin:top left;width:285%;height:auto}
+.poster-info-col{padding:3rem 2.5rem;display:flex;flex-direction:column;justify-content:center;gap:1.25rem;border-left:1px solid rgba(37,99,235,.12)}
+.poster-info-title{font-weight:900;font-size:clamp(1.2rem,2.2vw,1.65rem);line-height:1.2;color:#fff}
+.poster-info-desc{font-size:.87rem;color:var(--g);line-height:1.8}
+.poster-info-btns{display:flex;gap:.75rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" onclick="go('home')">RAKIB</a>
+  <div class="navlinks">
+    <button class="nl on" onclick="go('home')">Home</button>
+    <button class="nl" onclick="go('timeline')">Timeline</button>
+    <button class="nl" onclick="go('docs')">Documents</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section class="sec on" id="home">
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="badge"><span class="bdot"></span>ECEN 403 & 404 · Texas A&M University at Qatar · 2026</div>
+    <h1 class="htitle">RAKIB</h1>
+    <p class="harabic">راكب = rider, symbol of safety</p>
+    <p class="htag"><strong>AI-powered crash detection</strong>, <strong>real-time vital monitoring</strong>, and <strong>autonomous SOS.</strong></p>
+    <p class="hsub" style="margin-bottom:.5rem">Real-time safety. Autonomous response. Continuous monitoring.</p>
+    <p class="hsub">AI Helmet &bull; Crash Detection &bull; Vital Monitoring &bull; Emergency Response</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-k">Detects</div><div class="hstat-v">Crash events & abnormal vitals</div></div>
+      <div class="hstat"><div class="hstat-k">Responds</div><div class="hstat-v">SOS with real-time GPS</div></div>
+      <div class="hstat"><div class="hstat-k">Connects</div><div class="hstat-v">Helmet &bull; App &bull; Cloud</div></div>
+      <div class="hstat"><div class="hstat-k">Built For</div><div class="hstat-v">Delivery riders in Qatar</div></div>
+    </div>
+  </div>
+
+  <div class="aw">
+    <div class="about-head">
+      <div>
+        <div class="about-title">About Us</div>
+        <div class="about-big-label">Designed around the rider, not just the helmet.</div>
+      </div>
+    </div>
+
+    <div class="about-box">
+      <h2 class="about-subtitle">An intelligent helmet that responds <span>when the rider cannot.</span></h2>
+      <p class="about-text">Motorcycle delivery riders in Qatar operate in demanding conditions. In a crash or medical emergency, response time is critical — especially if the rider cannot reach their phone.</p>
+      <p class="about-text">RAKIB integrates embedded sensors, on-device intelligence, GPS, and cellular connectivity into a single safety system. It continuously monitors motion and vital signs, detects abnormal conditions, and automatically triggers an SOS alert with the rider's location.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="ainfo card"><div class="ainfo-k">Problem</div><h3>Emergency response can be delayed.</h3><p>A rider may be unable to access their phone or call for help in time.</p></div>
+      <div class="ainfo card"><div class="ainfo-k">Approach</div><h3>Move safety decisions directly into the helmet.</h3><p>The system performs real-time monitoring and detection independently of the rider.</p></div>
+      <div class="ainfo card"><div class="ainfo-k">Outcome</div><h3>Faster, reliable emergency response.</h3><p>RAKIB detects danger and initiates alerts automatically, reducing response time and reliance on manual action.</p></div>
+    </div>
+
+    <div class="tamuq-badge">
+      <div class="tlogo">TEXAS<br>A&M<br>QATAR</div>
+      <div><div class="tname">Texas A&M University at Qatar</div><div class="tsub">ECEN Senior Capstone · Team #4 · Spring 2026</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="tw">
+    <div class="team-head">
+      <div>
+        <div class="section-kicker">Team</div>
+        <div class="team-big-label">Four engineers. One mission.</div>
+      </div>
+    </div>
+    <div class="tgrid">
+      <div class="tc card"><div class="av" style="background:linear-gradient(135deg,#f97316,#fb923c)">L</div><div class="tn">Layla Al Maseeh</div></div>
+      <div class="tc card"><div class="av" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">R</div><div class="tn">Reem Al-Sulaiman</div></div>
+      <div class="tc card"><div class="av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">M</div><div class="tn">Moza Al-Naimi</div></div>
+      <div class="tc card"><div class="av" style="background:linear-gradient(135deg,#10b981,#059669)">N</div><div class="tn">Nadeen Abunada</div></div>
+      <div class="adv-row">
+        <div class="adv card"><div class="adv-av" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">AG</div><div><div class="adv-name">Dr. Ali Ghrayeb</div><div class="adv-role">Faculty Advisor · ECEN 404<br>Texas A&M University at Qatar</div></div></div>
+        <div class="adv card"><div class="adv-av" style="background:linear-gradient(135deg,#7c3aed,#5b21b6)">HK</div><div><div class="adv-name">Dr. Hasan Kurban</div><div class="adv-role">Faculty Advisor · ECEN 404<br>Texas A&M University at Qatar</div></div></div>
+        <div class="adv card"><div class="adv-av" style="background:linear-gradient(135deg,#0891b2,#0e7490)">MS</div><div><div class="adv-name">Mohammad AlShaikh Saleh</div><div class="adv-role">Post-Doctoral Researcher<br>HBKU</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- TIMELINE -->
+<section class="sec" id="timeline">
+  <div class="tl-hero">
+    <div class="lbl">Project Timeline</div>
+    <h2 class="tl-hd">From concept to <span>working prototype.</span></h2>
+    <p style="color:var(--g);font-size:.92rem;line-height:1.7;max-width:480px;margin:0 auto 2rem">Two semesters. Seventeen phases. One fully working AI helmet.</p>
+  </div>
+  <div class="tlc">
+    <div class="sem-div"><span class="sem-badge" style="background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);color:var(--ac2)">ECEN 403 — Fall 2025</span><div class="sem-line" style="background:rgba(37,99,235,.2)"></div></div>
+    <div class="phases">
+      <div class="ph-item"><div class="ph-dot"></div><div class="ph-card card"><div class="ph-hd"><span class="ph-name">Phase 1 — Research & Initial Planning</span><span class="ph-date">Aug 21 – Sep 1</span></div><p class="ph-desc">Formed the team, confirmed mentorship, and conducted a literature review to establish the project concept.</p></div></div>
+      <div class="ph-item"><div class="ph-dot"></div><div class="ph-card card"><div class="ph-hd"><span class="ph-name">Phase 2 — System Concept & Component Selection</span><span class="ph-date">Sep 1 – Sep 30</span></div><p class="ph-desc">Finalized the system architecture, selected hardware components, and placed orders.</p></div></div>
+      <div class="ph-item"><div class="ph-dot"></div><div class="ph-card card"><div class="ph-hd"><span class="ph-name">Phase 3 — Midterm Prep & Component Arrival</span><span class="ph-date">Oct 1 – Oct 17</span></div><p class="ph-desc">Delivered the midterm presentation, received components, and began initial sensor testing.</p></div></div>
+      <div class="ph-item"><div class="ph-dot"></div><div class="ph-card card"><div class="ph-hd"><span class="ph-name">Phase 4 — Hardware Integration</span><span class="ph-date">Oct 17 – Nov 1</span></div><p class="ph-desc">Integrated all sensors, established wireless connectivity, and calibrated the motion detection hardware.</p></div></div>
+      <div class="ph-item"><div class="ph-dot"></div><div class="ph-card card"><div class="ph-hd"><span class="ph-name">Phase 5 — AI Model Development</span><span class="ph-date">Nov 1 – Nov 17</span></div><p class="ph-desc">Collected sensor data, defined medical safety thresholds, and trained AI models for crash and vitals detection.</p></div></div>
+      <div class="ph-item"><div class="ph-dot"></div><div class="ph-card card"><div class="ph-hd"><span class="ph-name">Phase 6 — System Integration</span><span class="ph-date">Nov 17 – Nov 22</span></div><p class="ph-desc">Built the mobile app, deployed AI models to the cloud, and completed the full helmet-to-app data pipeline.</p></div></div>
+      <div class="ph-item"><div class="ph-dot"></div><div class="ph-card card"><div class="ph-hd"><span class="ph-name">Phase 7 — Finalization & Testing</span><span class="ph-date">Nov 22 – Dec 7</span></div><p class="ph-desc">Completed end-to-end testing, validated battery life, tuned detection thresholds, and finalized the helmet assembly.</p></div></div>
+    </div>
+
+    <div class="sem-div" style="margin-top:2rem"><span class="sem-badge" style="background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--gr)">ECEN 404 — Spring 2026</span><div class="sem-line" style="background:rgba(16,185,129,.2)"></div></div>
+    <div class="phases green">
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 8 — Open-Source Dataset Collection</span><span class="ph-date">Jan 4 – Jan 31</span></div><p class="ph-desc">Collected and reviewed publicly available datasets to support model training and validation.</p></div></div>
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 9 — Temperature Sensor Testing & 3D Printing</span><span class="ph-date">Jan 31 – Feb 15</span></div><p class="ph-desc">Validated temperature sensor accuracy and designed 3D-printed enclosures for the helmet internals.</p></div></div>
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 10 — Threshold Definition & Detection Testing</span><span class="ph-date">Jan 31 – Feb 28</span></div><p class="ph-desc">Defined medical thresholds for vital signs based on clinical guidelines and validated detection on hardware.</p></div></div>
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 11 — Motion Testing (Walking & Head Motion)</span><span class="ph-date">Feb 15 – Feb 28</span></div><p class="ph-desc">Conducted real-world motion tests with the helmet worn to distinguish normal activity from crash signatures.</p></div></div>
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 12 — AI Model Design & Training</span><span class="ph-date">Feb 15 – Mar 15</span></div><p class="ph-desc">Designed the machine learning pipeline, trained and validated AI models, and deployed to the cloud.</p></div></div>
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 13 — App Development & BLE Integration</span><span class="ph-date">Feb 28 – Mar 15</span></div><p class="ph-desc">Developed the full iOS app with live vitals, crash alerts, ride history, SOS scenarios, and an AI voice assistant.</p></div></div>
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 14 — Helmet-App Communication Integration</span><span class="ph-date">Mar 15 – Mar 31</span></div><p class="ph-desc">Fully integrated helmet firmware with the iOS app, verifying sensor streaming, event handling, and SOS state transitions.</p></div></div>
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 15 — Hardware-Software Final Integration</span><span class="ph-date">Mar 15 – Apr 15</span></div><p class="ph-desc">Assembled all hardware inside the helmet shell, resolved integration issues, and verified full system operation.</p></div></div>
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 16 — System Validation & Accuracy Testing</span><span class="ph-date">Mar 15 – Apr 15</span></div><p class="ph-desc">Validated the full system across crash detection, vitals monitoring, and SOS delivery scenarios.</p></div></div>
+      <div class="ph-item"><div class="ph-dot g"></div><div class="ph-card card g"><div class="ph-hd"><span class="ph-name">Phase 17 — Final Demo & Design Expo</span><span class="ph-date">Apr 2026</span></div><p class="ph-desc">Demonstrated the working prototype at the ECEN 404 Design Expo.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTS -->
+<section class="sec" id="docs">
+  <div class="docs-hero">
+    <div class="lbl">Project Resources</div>
+    <h2 style="font-weight:900;font-size:clamp(1.6rem,3.5vw,2.4rem);margin-bottom:.6rem">Documents</h2>
+    <p style="color:var(--g);font-size:.9rem;line-height:1.7;max-width:500px;margin:0 auto">All ECEN 403 & 404 deliverables — presentations, reports, poster, video, and meetings.</p>
+  </div>
+  <div class="doc-tabs">
+    <button class="dct on" onclick="dcTab('d403',this)">ECEN 403</button>
+    <button class="dct" onclick="dcTab('d404',this)">ECEN 404</button>
+    <button class="dct" onclick="dcTab('dsh',this)">Poster & Video</button>
+  </div>
+
+  <div id="d403" class="docs-body on">
+    <div class="dsec"><div class="dsec-hd"><div class="dsec-icon"><div class="dicon" style="background:rgba(37,99,235,.1)">📊</div><div><div class="dsec-title">Presentations</div><div class="dsec-sub">Milestone slide decks</div></div></div><span class="dcnt">2 Files</span></div>
+    <div class="doc-list">
+      <div class="doc-row card"><div class="dri">📊</div><div class="drb"><div class="dr-title">Presentation 1</div><div class="dr-desc">Initial concept, problem statement, proposed solution, and system architecture.</div></div><div class="dr-meta"><span class="dr-date">Sep 2025</span><a class="btn p" href="files/presentation-1.pdf" target="_self">View</a></div></div>
+      <div class="doc-row card"><div class="dri">📊</div><div class="drb"><div class="dr-title">Final Presentation</div><div class="dr-desc">Full system design, hardware integration, AI model, and results.</div></div><div class="dr-meta"><span class="dr-date">Nov 2025</span><a class="btn p" href="files/final-presentation.pdf" target="_self">View</a></div></div>
+    </div></div>
+    <div class="dsec"><div class="dsec-hd"><div class="dsec-icon"><div class="dicon" style="background:rgba(16,185,129,.1)">📄</div><div><div class="dsec-title">Reports & Documents</div><div class="dsec-sub">Written technical deliverables</div></div></div><span class="dcnt">6 Files</span></div>
+    <div class="doc-list">
+      <div class="doc-row card"><div class="dri">📄</div><div class="drb"><div class="dr-title">CONOPS — Concepts of Operations</div><div class="dr-desc">System overview, operational description, modes, users, and scenarios.</div></div><div class="dr-meta"><span class="dr-date">Oct 2025</span><a class="btn p" id="btn-conops" href="files/conops.pdf" target="_self">View</a></div></div>
+      <div class="doc-row card"><div class="dri">📄</div><div class="drb"><div class="dr-title">Benchmarking</div><div class="dr-desc">Comparison with existing smart helmets across safety, AI, and connectivity criteria.</div></div><div class="dr-meta"><span class="dr-date">Oct 2025</span><a class="btn p" id="btn-bench" href="files/benchmarking.pdf" target="_self">View</a></div></div>
+      <div class="doc-row card"><div class="dri">📄</div><div class="drb"><div class="dr-title">403 Ethics Report</div><div class="dr-desc">Ethical analysis covering MCIT principles of security, safety, and data privacy.</div></div><div class="dr-meta"><span class="dr-date">Oct 2025</span><a class="btn p" id="btn-ethics" href="files/ethics-ai-in-engineering.pdf" target="_self">View</a></div></div>
+      <div class="doc-row card"><div class="dri">📄</div><div class="drb"><div class="dr-title">FSR — Functional System Requirements</div><div class="dr-desc">System definition, subsystem requirements, performance and physical characteristics.</div></div><div class="dr-meta"><span class="dr-date">Oct 2025</span><a class="btn p" id="btn-fsr" href="files/fsr.pdf" target="_self">View</a></div></div>
+      <div class="doc-row card"><div class="dri">📄</div><div class="drb"><div class="dr-title">Milestone & Validation</div><div class="dr-desc">Project milestones, validation plan, and current progress against timeline.</div></div><div class="dr-meta"><span class="dr-date">Oct 2025</span><a class="btn p" id="btn-milestone" href="files/milestone-validation.pdf" target="_self">View</a></div></div>
+      <div class="doc-row card"><div class="dri">📄</div><div class="drb"><div class="dr-title">403 Final Report</div><div class="dr-desc">Complete ECEN 403 report covering ConOps, benchmarking, FSR, design, and project itinerary.</div></div><div class="dr-meta"><span class="dr-date">Dec 2025</span><a class="btn p" id="btn-finalreport" href="files/403-final-report.pdf" target="_self">View</a></div></div>
+    </div></div>
+    <div class="dsec"><div class="dsec-hd"><div class="dsec-icon"><div class="dicon" style="background:rgba(245,158,11,.1)">📅</div><div><div class="dsec-title">Mentor Meetings</div><div class="dsec-sub">ECEN 403 — Fall 2025</div></div></div><span class="dcnt">1 File</span></div>
+    <div class="doc-list">
+      <div class="doc-row card"><div class="dri">📅</div><div class="drb"><div class="dr-title">RAKIB Meeting Log</div><div class="dr-desc">Complete ECEN 403 meetings collected in one PDF.</div></div><div class="dr-meta"><span class="dr-date">Fall 2025</span><a class="btn p" href="files/rakib-meeting-log.pdf" target="_self">View</a></div></div>
+    </div></div>
+  </div>
+
+  <div id="d404" class="docs-body">
+    <div class="dsec"><div class="dsec-hd"><div class="dsec-icon"><div class="dicon" style="background:rgba(37,99,235,.1)">📊</div><div><div class="dsec-title">Presentations — ECEN 404</div><div class="dsec-sub">Final year capstone</div></div></div><span class="dcnt">3 Files</span></div>
+    <div class="doc-list">
+      <div class="doc-row card"><div class="dri">📊</div><div class="drb"><div class="dr-title">404 Presentation 1</div><div class="dr-desc">Semester 2 project update, system architecture, and implementation progress.</div></div><div class="dr-meta"><span class="dr-date">Feb 2026</span><a class="btn p" href="files/404-presentation-1.pdf" target="_self">View</a></div></div>
+      <div class="doc-row card"><div class="dri">📊</div><div class="drb"><div class="dr-title">404 Presentation 2</div><div class="dr-desc">Hardware, app, AI pipeline, testing progress, and integration updates.</div></div><div class="dr-meta"><span class="dr-date">Mar 2026</span><a class="btn p" href="files/404-presentation-2.pdf" target="_self">View</a></div></div>
+      <div class="doc-row card"><div class="dri">📊</div><div class="drb"><div class="dr-title">404 Final Presentation</div><div class="dr-desc">Final system walkthrough, results, prototype validation, and conclusions.</div></div><div class="dr-meta"><span class="dr-date">Apr 2026</span><a class="btn p" href="files/404-final-presentation.pdf" target="_self">View</a></div></div>
+    </div></div>
+    <div class="dsec"><div class="dsec-hd"><div class="dsec-icon"><div class="dicon" style="background:rgba(16,185,129,.1)">📄</div><div><div class="dsec-title">Progress Reports — ECEN 404</div><div class="dsec-sub">Semester 2 report</div></div></div><span class="dcnt">1 File</span></div>
+    <div class="doc-list">
+      <div class="doc-row card"><div class="dri">📄</div><div class="drb"><div class="dr-title">404 Progress Report</div><div class="dr-desc">Semester 2 implementation progress, system development, and testing updates.</div></div><div class="dr-meta"><span class="dr-date">Spring 2026</span><a class="btn p" href="files/404-progress-report.pdf" target="_self">View</a></div></div>
+    </div></div>
+    <div class="dsec"><div class="dsec-hd"><div class="dsec-icon"><div class="dicon" style="background:rgba(16,185,129,.1)">📋</div><div><div class="dsec-title">Final Report — ECEN 404</div><div class="dsec-sub">Complete capstone report</div></div></div><span class="dcnt">1 File</span></div>
+    <div class="doc-list">
+      <div class="doc-row card"><div class="dri">📋</div><div class="drb"><div class="dr-title">404 Final Report</div><div class="dr-desc">Complete ECEN 404 report covering system design, AI pipeline, hardware integration, testing, and validation of the RAKIB smart helmet.</div></div><div class="dr-meta"><span class="dr-date">Apr 2026</span><a class="btn p" href="files/404-final-report.pdf" target="_self">View</a></div></div>
+    </div></div>
+    <div class="dsec"><div class="dsec-hd"><div class="dsec-icon"><div class="dicon" style="background:rgba(245,158,11,.1)">📅</div><div><div class="dsec-title">Meetings — ECEN 404</div><div class="dsec-sub">Spring 2026 meeting log</div></div></div><span class="dcnt">1 File</span></div>
+    <div class="doc-list">
+      <div class="doc-row card"><div class="dri">📅</div><div class="drb"><div class="dr-title">RAKIB Meeting Log</div><div class="dr-desc">Complete ECEN 404 meetings collected in one PDF.</div></div><div class="dr-meta"><span class="dr-date">Spring 2026</span><a class="btn p" href="files/rakib-404-meeting-log.pdf" target="_self">View</a></div></div>
+    </div></div>
+  </div>
+
+  <div id="dsh" class="docs-body">
+    <div class="shared-lbl">Shared across ECEN 403 & 404</div>
+    <div class="media-stack">
+      <section class="video-section">
+        <h2>RAKIB Demo</h2>
+        <video controls poster="images/video-cover.png">
+          <source src="videos/rakib-demo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </section>
+    </div>
+    <div class="poster-section">
+      <div class="poster-cols">
+        <div class="poster-preview-col">
+          <div class="poster-preview-card">
+            <img class="poster-preview-img" src="images/rakib-poster.png" alt="RAKIB Capstone Poster" />
+          </div>
+        </div>
+        <div class="poster-info-col">
+          <div class="poster-info-title">OFFICIAL CAPSTONE POSTER</div>
+          <p class="poster-info-desc">The final capstone poster presented at the ECEN 404 Design Expo, Spring 2026. It covers the full system design, AI pipeline, hardware integration, and real-world validation of the RAKIB smart helmet.</p>
+          <div class="poster-info-btns">
+            <a class="btn p" href="files/rakib-poster.pdf" target="_blank">View Full Poster →</a>
+            <a class="btn" href="files/rakib-poster.pdf" download="rakib-poster.pdf">Download PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function openLink(url){ window.open(url,'_blank'); }
+var timer=null,cdVal=10,state='ok';
+
+function go(id){
+  var secs=document.querySelectorAll('.sec');
+  var nls=document.querySelectorAll('.nl');
+  for(var i=0;i<secs.length;i++) secs[i].classList.remove('on');
+  for(var i=0;i<nls.length;i++) nls[i].classList.remove('on');
+  document.getElementById(id).classList.add('on');
+  window.scrollTo(0,0);
+  var ids=['home','timeline','docs'];
+  var idx=ids.indexOf(id);
+  if(idx>=0) nls[idx].classList.add('on');
+}
+
+function dcTab(id,btn){
+  var tabs=document.querySelectorAll('.dct');
+  var bodies=document.querySelectorAll('.docs-body');
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('on');
+  for(var i=0;i<bodies.length;i++){bodies[i].classList.remove('on');bodies[i].style.display='none';}
+  btn.classList.add('on');
+  var el=document.getElementById(id);
+  el.classList.add('on');
+  el.style.display='block';
+}
+
+function setLED(color,anim){
+  var ld=document.getElementById('hLed');
+  var lr=document.getElementById('ledRect');
+  var lg=document.getElementById('ledGlow');
+  var hg=document.getElementById('hGlow');
+  var off='#1a2030';
+  ld.style.background=color;
+  ld.style.boxShadow=color===off?'none':'0 0 18px '+color;
+  ld.className='h-led-div '+(anim||'');
+  if(lr){lr.setAttribute('fill',color);lr.className=anim||'';}
+  if(lg){lg.setAttribute('fill',color===off?'transparent':color);}
+  if(hg){hg.style.background=color===off?'transparent':color;}
+}
+
+function setStatus(txt,bg,bc,col){
+  var s=document.getElementById('hStatus');
+  s.textContent=txt; s.style.background=bg; s.style.borderColor=bc; s.style.color=col;
+}
+
+function setBanner(txt,cls){
+  var b=document.getElementById('pBanner');
+  b.textContent=txt; b.className='banner '+cls;
+}
+
+function sim(type){
+  var hr=document.getElementById('pHR');
+  var sp=document.getElementById('pSp');
+  var pst=document.getElementById('pSt');
+  var cd=document.getElementById('pCD');
+  var ca=document.getElementById('pCA');
+  var bd=document.getElementById('bleDot');
+  var bt=document.getElementById('bleText');
+  var off='#1a2030';
+
+  if(type==='connect'){
+    clearInterval(timer); state='ok';
+    cd.style.display='none'; ca.style.display='none';
+    pst.textContent='◌ Connecting…'; pst.style.color='#a78bfa';
+    bt.textContent='Searching for helmet…'; bd.style.background='#8b5cf6';
+    setBanner('Searching for RAKIB helmet…','bpu');
+    setLED('#8b5cf6','ab');
+    setStatus('◌ CONNECTING','rgba(139,92,246,.12)','rgba(139,92,246,.25)','#a78bfa');
+  } else if(type==='connected'){
+    clearInterval(timer); state='ok';
+    cd.style.display='none'; ca.style.display='none';
+    pst.textContent='● Connected'; pst.style.color='var(--gr)';
+    bt.textContent='BLE Connected · SIM Active'; bd.style.background='var(--gr)';
+    setBanner('Helmet connected — starting monitoring','bpu');
+    setLED('#8b5cf6','');
+    setStatus('● CONNECTED','rgba(139,92,246,.15)','rgba(139,92,246,.3)','#a78bfa');
+    setTimeout(function(){if(state==='ok'){setBanner('✓ All Clear — Riding Normally','bn');setLED(off,'');setStatus('● ACTIVE','rgba(16,185,129,.12)','rgba(16,185,129,.25)','#10b981');}},2000);
+  } else if(type==='normal'){
+    clearInterval(timer); state='ok';
+    cd.style.display='none'; ca.style.display='none';
+    hr.textContent='88'; hr.style.color='';
+    sp.textContent='98%'; sp.style.color='';
+    pst.textContent='● Connected'; pst.style.color='var(--gr)';
+    bt.textContent='BLE Connected · SIM Active'; bd.style.background='var(--gr)';
+    setBanner('✓ All Clear — Riding Normally','bn');
+    setLED(off,'');
+    setStatus('● ACTIVE','rgba(16,185,129,.12)','rgba(16,185,129,.25)','#10b981');
+  } else if(type==='vitals'){
+    if(state==='cd'||state==='sos') return;
+    state='vt';
+    hr.textContent='138'; hr.style.color='#f59e0b';
+    sp.textContent='90%'; sp.style.color='#f59e0b';
+    setBanner('💙 Abnormal vitals — monitoring…','bbl');
+    setLED('#3b82f6','');
+    setStatus('💙 VITALS ALERT','rgba(59,130,246,.15)','rgba(59,130,246,.3)','#93c5fd');
+  } else if(type==='crash'){
+    if(state==='cd'||state==='sos') return;
+    clearInterval(timer); state='cd'; cdVal=10;
+    hr.textContent='148'; hr.style.color='#fca5a5';
+    setBanner('⚠️ Crash Detected!','bc2');
+    cd.style.display='block'; cd.textContent='10';
+    ca.style.display='block';
+    setLED('#ef4444','af');
+    setStatus('🚨 CRASH DETECTED','rgba(239,68,68,.15)','rgba(239,68,68,.3)','#fca5a5');
+    timer=setInterval(function(){
+      cdVal--;
+      cd.textContent=cdVal;
+      if(cdVal<=0){
+        clearInterval(timer);
+        cd.style.display='none'; ca.style.display='none';
+        setBanner('🚨 SOS SENT — Help is on the way','bs');
+        setLED('#ef4444','');
+        setStatus('🚨 SOS SENT','rgba(239,68,68,.2)','rgba(239,68,68,.45)','#fca5a5');
+        state='sos';
+      }
+    },1000);
+  } else if(type==='cancel'){
+    if(state!=='cd'&&state!=='sos') return;
+    clearInterval(timer); state='ok';
+    cd.style.display='none'; ca.style.display='none';
+    setBanner('✓ Canceled — Back to monitoring','bca');
+    setLED('#10b981','');
+    setStatus('✓ CANCELED','rgba(16,185,129,.12)','rgba(16,185,129,.25)','#10b981');
+    setTimeout(function(){
+      if(state==='ok'){
+        setBanner('✓ All Clear — Riding Normally','bn');
+        setLED(off,'');
+        setStatus('● ACTIVE','rgba(16,185,129,.12)','rgba(16,185,129,.25)','#10b981');
+      }
+    },2500);
+  } else if(type==='reset'){
+    clearInterval(timer); state='ok'; cdVal=10;
+    cd.style.display='none'; ca.style.display='none';
+    hr.textContent='88'; hr.style.color='';
+    sp.textContent='98%'; sp.style.color='';
+    pst.textContent='● Connected'; pst.style.color='var(--gr)';
+    bt.textContent='BLE Connected · SIM Active'; bd.style.background='var(--gr)';
+    setBanner('✓ All Clear — Riding Normally','bn');
+    setLED(off,'');
+    setStatus('● ACTIVE','rgba(16,185,129,.12)','rgba(16,185,129,.25)','#10b981');
+  }
+}
+</script>
+</body>
+</html>
